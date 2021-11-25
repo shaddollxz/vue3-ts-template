@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { Msg } from "./types.js";
+import type { Msg } from "./types";
 interface Props {
     msg?: Msg;
 }

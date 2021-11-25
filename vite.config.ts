@@ -4,7 +4,8 @@ import vue from "@vitejs/plugin-vue";
 import viteCompression from "vite-plugin-compression";
 import visualizer from "rollup-plugin-visualizer";
 
-const proxySetting = { target: "", rewrite: "" };
+const proxySetting = { target: "", rewrite: "" }; // 配置代理
+const outDir = path.join(__dirname, "/dist"); // 打包输出路径
 
 const plugins: (PluginOption | PluginOption[])[] = [vue()];
 plugins.push(viteCompression()); // gzip
@@ -24,9 +25,12 @@ export default defineConfig({
         },
     },
     build: {
-        outDir: path.join(__dirname, "/dist"),
+        outDir,
+        target: "module", // 打包文件支持的es语法 这里指支持<script type="module">标签的浏览器 具体见https://vitejs.cn/config/#build-target
     },
     server: {
+        open: true, // dev时是否自动打开浏览器
+        port: 8000, // 开发服务器的端口
         proxy: {
             "/api": {
                 target: proxySetting.target,
