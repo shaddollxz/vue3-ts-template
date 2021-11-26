@@ -26,7 +26,7 @@ export default defineConfig({
     },
     build: {
         outDir,
-        target: "module", // 打包文件支持的es语法 这里指支持<script type="module">标签的浏览器 具体见https://vitejs.cn/config/#build-target
+        target: "modules", // 打包文件支持的es语法 这里指支持<script type="module">标签的浏览器 具体见https://vitejs.cn/config/#build-target
     },
     server: {
         open: true, // dev时是否自动打开浏览器
