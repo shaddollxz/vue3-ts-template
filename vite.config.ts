@@ -1,42 +1,33 @@
-import { defineConfig, PluginOption } from "vite";
+import { defineConfig, loadEnv } from "vite";
+import type { ConfigEnv } from "vite";
 import path from "path";
-import vue from "@vitejs/plugin-vue";
-import viteCompression from "vite-plugin-compression";
-import visualizer from "rollup-plugin-visualizer";
+import getPlugins from "./config/plugins";
+import getServer from "./config/server";
 
-const proxySetting = { target: "", rewrite: "" }; // 配置代理
 const outDir = path.join(__dirname, "/dist"); // 打包输出路径
 
-const plugins: (PluginOption | PluginOption[])[] = [vue()];
-plugins.push(viteCompression()); // gzip
-plugins.push(visualizer({ open: true, gzipSize: true, brotliSize: true })); // 依赖分析
-
 // https://vitejs.dev/config/
-export default defineConfig({
-    plugins,
-    resolve: {
-        alias: {
-            "@": "/src",
-            "@img": "/src/assets/img",
-            "@css": "/src/assets/css",
-            "@api": "/src/api",
-            "@comp": "/src/components",
-            "#": "/src/types",
+export default ({ command, mode }: ConfigEnv) => {
+    const Env = loadEnv(mode, path.resolve("./env")) as ImportMetaEnv;
+    const isBuild = command == "build";
+
+    return defineConfig({
+        plugins: getPlugins(Env, isBuild),
+        server: getServer(Env, isBuild),
+        envDir: path.resolve("./env"), // 环境变量文件夹位置
+        build: {
+            outDir,
+            target: "modules", // 打包文件支持的es语法 这里指支持<script type="module">标签的浏览器 具体见https://vitejs.cn/config/#build-target
         },
-    },
-    build: {
-        outDir,
-        target: "modules", // 打包文件支持的es语法 这里指支持<script type="module">标签的浏览器 具体见https://vitejs.cn/config/#build-target
-    },
-    server: {
-        open: true, // dev时是否自动打开浏览器
-        port: 8000, // 开发服务器的端口
-        proxy: {
-            "/api": {
-                target: proxySetting.target,
-                changeOrigin: true,
-                rewrite: (path) => path.replace(/^\/api/, proxySetting.rewrite),
+        resolve: {
+            alias: {
+                "@": "/src",
+                "@img": "/src/assets/img",
+                "@css": "/src/assets/css",
+                "@apis": "/src/apis",
+                "@views": "/src/views",
+                "#": "/src/types",
             },
         },
-    },
-});
+    });
+};

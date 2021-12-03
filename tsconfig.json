@@ -13,6 +13,7 @@
         "suppressImplicitAnyIndexErrors": true, // for-in 中不会报错
         "preserveValueImports": true, // 在setup块中导入某些函数后直接在模板上使用的错误
         "noImplicitOverride": true, // 检查子类覆盖父类方法时加上override
+        "skipLibCheck": true, // 打包时跳过类型检查
         "baseUrl": "./",
         "paths": {
             "@/*": [
@@ -27,8 +28,11 @@
             "@css/*": [
                 "src/assets/css/*"
             ],
-            "@comp/*": [
-                "src/components/*"
+            "@apis": [
+                "src/apis"
+            ],
+            "@views/*": [
+                "src/views/*"
             ]
         },
         "lib": [
@@ -40,7 +44,9 @@
         "src/**/*.ts",
         "src/**/*.d.ts",
         "src/**/*.tsx",
-        "src/**/*.vue"
+        "src/**/*.vue",
+        "config/*.ts",
+        "vite.config.ts"
     ],
     "exclude": [
         "dist",

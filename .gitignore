@@ -2,7 +2,7 @@ node_modules
 .DS_Store
 dist
 dist-ssr
-*.local
+# *.local # 使用模板时打开这里
 stats.html
 package-lock.json
 .vscode
