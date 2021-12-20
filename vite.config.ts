@@ -26,7 +26,7 @@ export default ({ command, mode }: ConfigEnv) => {
                 "@css": "/src/assets/css",
                 "@apis": "/src/apis",
                 "@views": "/src/views",
-                "#": "/src/types",
+                "#": "/src/typings",
             },
         },
     });

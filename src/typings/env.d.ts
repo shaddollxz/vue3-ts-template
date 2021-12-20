@@ -8,9 +8,9 @@ declare module "*.vue" {
 }
 
 interface ImportMetaEnv {
-    readonly VITE_VISUALIZER: boolean;
-    readonly VITE_BUILD: boolean;
-    readonly VITE_LOCAL: boolean;
+    readonly VITE_VISUALIZER: "true" | "false";
+    readonly VITE_BUILD: "true" | "false";
+    readonly VITE_LOCAL: "true" | "false";
 }
 
 interface ImportMeta {

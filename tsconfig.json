@@ -20,7 +20,7 @@
                 "src/*"
             ],
             "#/*": [
-                "src/types/*"
+                "src/typings/*"
             ],
             "@img/*": [
                 "src/assets/img/*"
