@@ -6,7 +6,7 @@ interface Meta {
 }
 
 declare global {
-    export interface RouteItem extends Omit<RouteRecordRaw, "children" | "meta"> {
+    declare interface RouteItem extends Omit<RouteRecordRaw, "children" | "meta"> {
         children?: RouteItem[];
         meta: Meta;
     }

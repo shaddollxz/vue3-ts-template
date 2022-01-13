@@ -1,29 +1,29 @@
 import type { ServerOptions } from "vite";
 import os from "os";
 
-let host = "localhost"; // 默认值
-try {
-    const ifaces = os.networkInterfaces()!;
-    for (let dev in ifaces) {
-        ifaces[dev]!.forEach((details, alias) => {
-            // 寻找IPv4协议族，并且地址不是本地地址或者回环地址的地址即可。
-            if (details.family === "IPv4" && details.address !== "127.0.0.1" && !details.internal) {
-                host = details.address;
-            }
-        });
-    }
-} catch {
-    host = "localhost";
-}
-
 export default function getServer(Env: ImportMetaEnv, isBuild: boolean): ServerOptions {
     let proxySetting: { target: string; rewrite: string };
 
-    //todo 根据环境变量配置代理
+    let host = "localhost";
+    //todo 根据环境变量配置代理和本地服务器地址
     if (Env.VITE_LOCAL) {
         proxySetting = { target: "", rewrite: "" };
     } else {
         proxySetting = { target: "", rewrite: "" };
+
+        try {
+            const ifaces = os.networkInterfaces()!;
+            for (let dev in ifaces) {
+                ifaces[dev]!.forEach((details, alias) => {
+                    // 寻找IPv4协议族，并且地址不是本地地址或者回环地址的地址即可。
+                    if (details.family === "IPv4" && details.address !== "127.0.0.1" && !details.internal) {
+                        host = details.address;
+                    }
+                });
+            }
+        } catch {
+            host = "localhost";
+        }
     }
 
     return {

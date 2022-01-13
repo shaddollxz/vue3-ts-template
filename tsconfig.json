@@ -8,6 +8,7 @@
         "jsx": "preserve",
         "sourceMap": true,
         "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
         "isolatedModules": true,
         "suppressImplicitAnyIndexErrors": true, // for-in 中不会报错
@@ -15,6 +16,10 @@
         "noImplicitOverride": true, // 检查子类覆盖父类方法时加上override
         "skipLibCheck": true, // 打包时跳过类型检查
         "baseUrl": "./",
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/typings"
+        ],
         "paths": {
             "@/*": [
                 "src/*"
@@ -45,11 +50,13 @@
         "src/**/*.d.ts",
         "src/**/*.tsx",
         "src/**/*.vue",
+        "script/*.ts",
         "config/*.ts",
         "vite.config.ts"
     ],
     "exclude": [
         "dist",
-        "node_modules"
+        "node_modules",
+        "script/template"
     ]
 }

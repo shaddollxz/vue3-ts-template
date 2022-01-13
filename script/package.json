@@ -1,0 +1,9 @@
+{
+    "name": "scripts",
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "createView": "node --loader ts-node/esm createView/index.ts",
+        "createComp": "node --loader ts-node/esm createComp/index.ts"
+    }
+}
