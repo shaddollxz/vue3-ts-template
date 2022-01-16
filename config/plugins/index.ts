@@ -1,11 +1,15 @@
 import type { PluginOption } from "vite";
 
-import vue from "@vitejs/plugin-vue";
+import vue from "./vue";
 import viteCompression from "vite-plugin-compression";
 import visualizer from "rollup-plugin-visualizer";
+import globalHook from "./globalHook";
 
 export default function getPlugins(Env: ImportMetaEnv, isBuild: boolean) {
-    const plugins: (PluginOption | PluginOption[])[] = [vue()];
+    const plugins: (PluginOption | PluginOption[])[] = [];
+
+    plugins.push(vue);
+    plugins.push(globalHook);
 
     if (Env.VITE_BUILD == "true") {
         plugins.push(viteCompression()); // gzip

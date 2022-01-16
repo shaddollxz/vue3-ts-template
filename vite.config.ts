@@ -19,11 +19,18 @@ export default ({ command, mode }: ConfigEnv) => {
             outDir,
             target: "modules", // 打包文件支持的es语法 这里指支持<script type="module">标签的浏览器 具体见https://vitejs.cn/config/#build-target
         },
+        css: {
+            preprocessorOptions: {
+                scss: {
+                    // 设置sass全局变量
+                    additionalData: "@use '@/styles/var' as *; @use '@/styles/mixin' as *;",
+                },
+            },
+        },
         resolve: {
             alias: {
                 "@": "/src",
                 "@img": "/src/assets/img",
-                "@css": "/src/assets/css",
                 "@apis": "/src/apis",
                 "@views": "/src/views",
                 "#": "/src/typings",

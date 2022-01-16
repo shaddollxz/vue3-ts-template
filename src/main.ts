@@ -1,7 +1,7 @@
 import { createApp } from "vue";
 import App from "./App.vue";
-import "vue-global-api";
 import router from "@/router";
 import { createPinia } from "pinia";
+import plugins from "@/plugins";
 
-createApp(App).use(router).use(createPinia()).mount("#app");
+createApp(App).use(router).use(createPinia()).use(plugins).mount("#app");
